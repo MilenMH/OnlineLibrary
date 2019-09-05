@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineLibrary.Data.Models
@@ -15,6 +16,8 @@ namespace OnlineLibrary.Data.Models
         public string LastName { get; set; }
 
         public string UserName { get; set; }
+
+        public List<Book> Books { get; set; }
 
     }
 }

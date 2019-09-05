@@ -15,10 +15,10 @@ namespace OnlineLibrary.Data.Models
         public DateTime ReleaseDate { get; set; }
 
         [Required]
-        public int WriterId { get; set; }
+        public Writer Writer { get; set; }
 
         [Required]
-        public int GenreId { get; set; }
+        public Genre Genre { get; set; }
 
         [StringLength(500, MinimumLength = 1)]
         public string Description { get; set; }

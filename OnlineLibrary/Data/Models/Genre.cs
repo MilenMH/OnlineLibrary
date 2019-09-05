@@ -11,5 +11,7 @@ namespace OnlineLibrary.Data.Models
         [Required]
         [StringLength(100, MinimumLength = 1)]
         public string GenreName { get; set; }
+
+        public Book Book { get; set; }
     }
 }
