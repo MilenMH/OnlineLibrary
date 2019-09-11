@@ -10,10 +10,23 @@ namespace OnlineLibrary.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Genres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GenreName = table.Column<string>(maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genres", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Writers",
                 columns: table => new
                 {
-                    WriterId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(maxLength: 200, nullable: true),
                     LastName = table.Column<string>(maxLength: 200, nullable: true),
@@ -21,55 +34,56 @@ namespace OnlineLibrary.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Writers", x => x.WriterId);
+                    table.PrimaryKey("PK_Writers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Books",
                 columns: table => new
                 {
-                    BookId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
+                    IdGenre = table.Column<int>(nullable: false),
+                    IdWriter = table.Column<int>(nullable: false),
                     ReleaseDate = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(maxLength: 300, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.BookId);
+                    table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Books_Writers_BookId",
-                        column: x => x.BookId,
+                        name: "FK_Books_Genres_IdGenre",
+                        column: x => x.IdGenre,
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Books_Writers_IdWriter",
+                        column: x => x.IdWriter,
                         principalTable: "Writers",
-                        principalColumn: "WriterId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Genres",
-                columns: table => new
-                {
-                    GenreId = table.Column<int>(nullable: false),
-                    GenreName = table.Column<string>(maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Genres", x => x.GenreId);
-                    table.ForeignKey(
-                        name: "FK_Genres_Books_GenreId",
-                        column: x => x.GenreId,
-                        principalTable: "Books",
-                        principalColumn: "BookId",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Books_IdGenre",
+                table: "Books",
+                column: "IdGenre");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Books_IdWriter",
+                table: "Books",
+                column: "IdWriter");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Genres");
+                name: "Books");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "Genres");
 
             migrationBuilder.DropTable(
                 name: "Writers");

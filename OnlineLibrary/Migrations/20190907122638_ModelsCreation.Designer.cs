@@ -11,7 +11,7 @@ using System;
 namespace OnlineLibrary.Migrations
 {
     [DbContext(typeof(OnlineLibraryDBContext))]
-    [Migration("20190904173825_ModelsCreation")]
+    [Migration("20190907122638_ModelsCreation")]
     partial class ModelsCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,15 @@ namespace OnlineLibrary.Migrations
 
             modelBuilder.Entity("OnlineLibrary.Data.Models.Book", b =>
                 {
-                    b.Property<int>("BookId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
                         .HasMaxLength(500);
+
+                    b.Property<int>("IdGenre");
+
+                    b.Property<int>("IdWriter");
 
                     b.Property<DateTime>("ReleaseDate");
 
@@ -34,27 +39,32 @@ namespace OnlineLibrary.Migrations
                         .IsRequired()
                         .HasMaxLength(300);
 
-                    b.HasKey("BookId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdGenre");
+
+                    b.HasIndex("IdWriter");
 
                     b.ToTable("Books");
                 });
 
             modelBuilder.Entity("OnlineLibrary.Data.Models.Genre", b =>
                 {
-                    b.Property<int>("GenreId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("GenreName")
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("GenreId");
+                    b.HasKey("Id");
 
                     b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("OnlineLibrary.Data.Models.Writer", b =>
                 {
-                    b.Property<int>("WriterId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("FirstName")
@@ -65,24 +75,21 @@ namespace OnlineLibrary.Migrations
 
                     b.Property<string>("UserName");
 
-                    b.HasKey("WriterId");
+                    b.HasKey("Id");
 
                     b.ToTable("Writers");
                 });
 
             modelBuilder.Entity("OnlineLibrary.Data.Models.Book", b =>
                 {
+                    b.HasOne("OnlineLibrary.Data.Models.Genre", "Genre")
+                        .WithMany("Books")
+                        .HasForeignKey("IdGenre")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("OnlineLibrary.Data.Models.Writer", "Writer")
                         .WithMany("Books")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("OnlineLibrary.Data.Models.Genre", b =>
-                {
-                    b.HasOne("OnlineLibrary.Data.Models.Book", "Book")
-                        .WithOne("Genre")
-                        .HasForeignKey("OnlineLibrary.Data.Models.Genre", "GenreId")
+                        .HasForeignKey("IdWriter")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

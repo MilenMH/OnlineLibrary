@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OnlineLibrary.Data.Models
 {
-    public class Book
+    public class Book : AbstractEntity
     {
-        [Key]
-        public int BookId { get; set; }
 
         [Required]
         [StringLength(300, MinimumLength = 1)]
@@ -15,7 +13,13 @@ namespace OnlineLibrary.Data.Models
         public DateTime ReleaseDate { get; set; }
 
         [Required]
+        public int IdWriter { get; set; }
+
+        [Required]
         public Writer Writer { get; set; }
+
+        [Required]
+        public int IdGenre { get; set; }
 
         [Required]
         public Genre Genre { get; set; }

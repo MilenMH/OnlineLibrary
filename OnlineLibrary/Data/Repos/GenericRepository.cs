@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnlineLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineLibrary.Data.Repos
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : AbstractEntity
     {
         public OnlineLibraryDBContext _context = null;
         public DbSet<T> table = null;
@@ -23,19 +24,20 @@ namespace OnlineLibrary.Data.Repos
             table = _context.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return table.ToList();
         }
 
-        public T GetById(object id)
+        public virtual T GetById(object id)
         {
             return table.Find(id);
         }
 
-        public void Insert(T obj)
+        public int Insert(T obj)
         {
-            table.Add(obj);
+            var res = table.Add(obj);
+            return res.Entity.Id;
         }
 
         public void Update(T obj)

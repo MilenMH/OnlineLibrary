@@ -3,10 +3,10 @@ E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\bin\Debug\netcoreapp2.0\
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\bin\Debug\netcoreapp2.0\OnlineLibrary.runtimeconfig.dev.json
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\bin\Debug\netcoreapp2.0\OnlineLibrary.dll
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\bin\Debug\netcoreapp2.0\OnlineLibrary.pdb
-E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\obj\Debug\netcoreapp2.0\OnlineLibrary.csprojResolveAssemblyReference.cache
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\obj\Debug\netcoreapp2.0\OnlineLibrary.csproj.CoreCompileInputs.cache
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\obj\Debug\netcoreapp2.0\OnlineLibrary.AssemblyInfoInputs.cache
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\obj\Debug\netcoreapp2.0\OnlineLibrary.AssemblyInfo.cs
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\obj\Debug\netcoreapp2.0\OnlineLibrary.dll
 E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\obj\Debug\netcoreapp2.0\OnlineLibrary.pdb
+E:\Users\Milen\source\repos\OnlineLibrary\OnlineLibrary\obj\Debug\netcoreapp2.0\OnlineLibrary.csprojResolveAssemblyReference.cache

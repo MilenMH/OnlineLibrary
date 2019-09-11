@@ -1,0 +1,59 @@
+﻿@model OnlineLibrary.Data.DTOs.CreateOrEditBookDTO
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" value="@Model.Title" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label"></label>
+                <input asp-for="ReleaseDate" class="form-control" value="@Model.ReleaseDate" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" value="@Model.Description" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Genre</label>
+                <select name="SelectedGenreID" class="form-control">
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <option value="@genre.Id">@genre.GenreName</option>
+                    }
+                </select>
+            </div>
+            <div></div>
+            <div class="form-group">
+                <label class="control-label">Author</label>
+                <select name="SelectedWriterID" class="form-control">
+                    @foreach (var writer in Model.Writers)
+                    {
+                        <option value="@writer.Id">@string.Concat(writer.FirstName, " ", writer.LastName) </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

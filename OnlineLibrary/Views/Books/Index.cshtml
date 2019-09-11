@@ -1,0 +1,107 @@
+﻿@model OnlineLibrary.Helpers.PaginatedList<OnlineLibrary.Data.Models.Book>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<form asp-controller="Books" asp-action="Index" method="get">
+    <p>
+        Search By Book Title: <input asp-for="SearchByBookTitle" value="@Model.SearchByBookTitle">
+        <input type="submit" value="Filter" />
+    </p>
+    <p>
+        Search By Genre:
+        <select name="SearchByGenreName" onchange="submit()">
+            @foreach (var item1 in Model.Genres)
+            {
+                <option value="@item1.GenreName">@item1.GenreName</option>
+            }
+        </select>
+    </p>
+    <p>
+        Search By Writer Name: <input asp-for="SearchByWriterName" value="@Model.SearchByWriterName">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+@if (User.IsInRole("Admin"))
+{
+    <p><a asp-controller="Books" asp-action="Create">Create Book</a></p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Writer.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Writer.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Genre.GenreName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Writer.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Writer.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Genre.GenreName)
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    </td>
+                }
+                @if (User.IsInRole("User"))
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-SearchByBookTitle="@Model.SearchByBookTitle"
+   asp-route-SearchByGenreName="@Model.SearchByGenreName"
+   asp-route-SearchByWriterName="@Model.SearchByWriterName"
+   asp-route-page="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-SearchByBookTitle="@Model.SearchByBookTitle"
+   asp-route-SearchByGenreName="@Model.SearchByGenreName"
+   asp-route-SearchByWriterName="@Model.SearchByWriterName"
+   asp-route-page="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+

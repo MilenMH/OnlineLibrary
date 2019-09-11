@@ -31,16 +31,18 @@ namespace OnlineLibrary.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Book>()
-                .HasOne(b => b.Writer)
-                .WithMany(w => w.Books)
-                .HasForeignKey(b => b.BookId);
+            modelBuilder.Entity<Genre>()
+                .HasMany(g => g.Books)
+                .WithOne(b => b.Genre)
+                .IsRequired()
+                .HasForeignKey(b => b.IdGenre);
 
-            modelBuilder.Entity<Book>()
-                .HasOne(b => b.Genre)
-                .WithOne(g => g.Book)
-                .HasForeignKey<Genre>(g => g.GenreId);
 
+            modelBuilder.Entity<Writer>()
+                .HasMany(w => w.Books)
+                .WithOne(b => b.Writer)
+                .IsRequired()
+                .HasForeignKey(b => b.IdWriter);
 
         }
     }

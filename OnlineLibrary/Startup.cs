@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using OnlineLibrary.Data;
 using OnlineLibrary.Models;
 using OnlineLibrary.Services;
+using OnlineLibrary.Data.Repos;
+using OnlineLibrary.Data.Models;
 
 namespace OnlineLibrary
 {
@@ -38,6 +38,10 @@ namespace OnlineLibrary
                 options.UseSqlServer(Configuration.GetConnectionString("OnlineLibraryConnectionString")));
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IGenericRepository<Book>, GenericRepository<Book>>();
+            services.AddTransient<IGenericRepository<Writer>, GenericRepository<Writer>>();
+            services.AddTransient<IGenericRepository<Genre>, GenericRepository<Genre>>();
+            services.AddTransient<IBookRepository, BooksRepository>();
 
             services.AddMvc();
         }
